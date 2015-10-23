@@ -1,0 +1,11 @@
+<launch>
+  <node pkg="nodelet" type="nodelet" name="standalone_nodelet"  args="manager" output="screen"/>       
+
+  <node pkg="nodelet" type="nodelet" name="LaserScanFilter" args="load laserscan_filter_nodelet/laserscan_filter standalone_nodelet" output="screen">
+    <param name="laser_topic" value="/knarr/sensors/laser"/>
+    <param name="imu_topic" value="/knarr/sensors/imu/data"/>
+    <param name="roll_delta" value="0.034"/>
+    <param name="pitch_delta" value="0.034"/>
+  </node>         
+  
+</launch>

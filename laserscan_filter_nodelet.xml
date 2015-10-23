@@ -1,0 +1,8 @@
+<library path="lib/liblaserscan_filter_nodelet">
+  <class name="laserscan_filter_nodelet/laserscan_filter" type="laserscan_filter_nodelet::LaserScanFilter" base_class_type="nodelet::Nodelet">
+    <description> 
+      A nodelet to filter laser scan messages.
+    </description>
+  </class>
+</library>
+
