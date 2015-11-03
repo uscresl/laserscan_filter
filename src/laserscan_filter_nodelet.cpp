@@ -29,18 +29,15 @@ private:
     virtual void onInit() {
         ros::NodeHandle& private_nh = getPrivateNodeHandle();
         
-        std::string laser_topic, imu_topic;
-        private_nh.getParam("laser_topic", laser_topic);
-        private_nh.getParam("imu_topic", imu_topic);
         private_nh.param<double>("roll_delta", roll_delta_, 0.034);
         private_nh.param<double>("pitch_delta", pitch_delta_, 0.034);
         
-        laser_sub_ = new message_filters::Subscriber<LaserScan>(private_nh, laser_topic, 1);
-        imu_sub_ = new message_filters::Subscriber<Imu>(private_nh, imu_topic, 1);
+        laser_sub_ = new message_filters::Subscriber<LaserScan>(private_nh, "laser", 1);
+        imu_sub_ = new message_filters::Subscriber<Imu>(private_nh, "imu", 1);
         sync_ = new Synchronizer<SyncPolicy>(SyncPolicy(10), *laser_sub_, *imu_sub_);
         sync_->registerCallback(boost::bind(&LaserScanFilter::callback, this, _1, _2));
         
-        laser_pub_ = private_nh.advertise<LaserScan>("/laserfiltered", 10);
+        laser_pub_ = private_nh.advertise<LaserScan>("laserfiltered", 10);
         ROS_INFO("LaserScanFilterNodelet complete Init");
     }
 
